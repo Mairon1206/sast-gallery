@@ -36,7 +36,8 @@ AboutPage::AboutPage(QWidget* parent)
     centerLayout->addSpacing(30);
     centerLayout->addWidget(createTextArea("Version Info", VERSION_FULL));
     centerLayout->addWidget(createTextArea("License", "MIT License Copyright (c) 2024 NJUPT-SAST"));
-    centerLayout->addWidget(createTextArea("Supported Platforms", "Windows | Linux | macOS"));
+    centerLayout->addWidget(
+        createTextArea("Supported Platforms", "Windows | Linux | macOS (experimental)"));
     centerLayout->addWidget(
         createLinkArea("Repository", "https://github.com/NJUPT-SAST-CXX/sast-gallery"));
     centerLayout->addWidget(createLinkArea("Visit SAST", "https://sast.fun"));

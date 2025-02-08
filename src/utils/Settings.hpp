@@ -30,6 +30,9 @@ inline void initSettings() {
     if (!settings.contains("micaEffect")) {
         settings.setValue("micaEffect", false);
     }
+    if (!settings.contains("opacity")) {
+        settings.setValue("opacity", 1.0);
+    }
     if (!settings.contains("navigationBarDisplayMode")) {
         settings.setValue("navigationBarDisplayMode", 0);
     }

@@ -3,8 +3,10 @@
 #include <ElaApplication.h>
 #include <ElaComboBox.h>
 #include <ElaRadioButton.h>
+#include <ElaSlider.h>
 #include <ElaTheme.h>
 #include <ElaToggleSwitch.h>
+#include <ElaToolTip.h>
 #include <ElaWindow.h>
 #include <QVBoxLayout>
 
@@ -47,6 +49,20 @@ SettingPage::SettingPage(QWidget* parent)
         settings.setValue("micaEffect", checked);
     });
     micaSwitchButton->setIsToggled(settings.value("micaEffect").toBool());
+
+    auto opacitySlider = new ElaSlider(this);
+    opacitySlider->setRange(40, 100);
+    opacitySlider->setSingleStep(1);
+    opacitySlider->setFixedWidth(300);
+    auto opacityToolTip = new ElaToolTip(opacitySlider);
+    opacityToolTip->setToolTip("Opacity");
+    auto opacityArea = createScrollPageArea("Opacity", opacitySlider);
+    connect(opacitySlider, &ElaSlider::valueChanged, this, [=](int value) {
+        window->setWindowOpacity(value / 100.0);
+        settings.setValue("opacity", value / 100.0);
+        opacityToolTip->setToolTip(QString("%1%").arg(value));
+    });
+    opacitySlider->setValue(static_cast<int>(settings.value("opacity").toDouble() * 100));
 
     auto minimumButton = new ElaRadioButton("Minimum", this);
     auto compactButton = new ElaRadioButton("Compact", this);
@@ -114,6 +130,7 @@ SettingPage::SettingPage(QWidget* parent)
     centerLayout->addSpacing(10);
     centerLayout->addWidget(themeSwitchArea);
     centerLayout->addWidget(micaSwitchArea);
+    centerLayout->addWidget(opacityArea);
     centerLayout->addWidget(displayModeArea);
     centerLayout->addSpacing(15);
     centerLayout->addWidget(functionsText);
